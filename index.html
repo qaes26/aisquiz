@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظم المعلومات المحاسبية - الاختبار التفاعلي</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* تنسيقات عامة */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #1abc9c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --success-color: #2ecc71;
+            --danger-color: #e74c3c;
+            --warning-color: #f39c12;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* الهيدر */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 30px 0;
+            box-shadow: var(--shadow);
+            border-bottom: 5px solid var(--accent-color);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo i {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+        }
+
+        .logo-text h1 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+
+        .logo-text p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .student-info {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            border-right: 4px solid var(--accent-color);
+        }
+
+        .student-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+
+        /* التنقل */
+        nav {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            margin: 25px 0;
+            overflow: hidden;
+        }
+
+        .nav-list {
+            display: flex;
+            list-style: none;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-list li {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+        }
+
+        .nav-list a {
+            display: block;
+            padding: 20px;
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border-bottom: 4px solid transparent;
+        }
+
+        .nav-list a:hover, .nav-list a.active {
+            background-color: #f8f9fa;
+            color: var(--secondary-color);
+            border-bottom: 4px solid var(--accent-color);
+        }
+
+        .nav-list i {
+            margin-left: 8px;
+            font-size: 1.2rem;
+        }
+
+        /* المحتوى الرئيسي */
+        main {
+            min-height: 500px;
+            margin-bottom: 40px;
+        }
+
+        .section {
+            display: none;
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            animation: fadeIn 0.5s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-header {
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-header i {
+            color: var(--accent-color);
+            font-size: 1.8rem;
+        }
+
+        .section-header h2 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+        }
+
+        /* الصفحة الرئيسية */
+        .welcome-message {
+            background: linear-gradient(to right, #f8f9fa, #e9ecef);
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-right: 5px solid var(--secondary-color);
+        }
+
+        .chapters-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .chapter-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            border-top: 5px solid var(--accent-color);
+            transition: transform 0.3s ease;
+        }
+
+        .chapter-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .chapter-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chapter-card h3 i {
+            color: var(--accent-color);
+        }
+
+        .chapter-card ul {
+            padding-right: 20px;
+            margin-bottom: 15px;
+        }
+
+        .chapter-card li {
+            margin-bottom: 8px;
+            position: relative;
+        }
+
+        .chapter-card li:before {
+            content: "•";
+            color: var(--secondary-color);
+            font-weight: bold;
+            position: absolute;
+            right: -15px;
+        }
+
+        /* صفحة الاختبارات */
+        .test-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .chapter-select {
+            padding: 12px 20px;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+            font-size: 1rem;
+            background-color: white;
+            color: var(--dark-color);
+            min-width: 250px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border-radius: 8px;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 7px 10px rgba(41, 128, 185, 0.3);
+        }
+
+        .btn-success {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #27ae60;
+            transform: translateY(-3px);
+            box-shadow: 0 7px 10px rgba(39, 174, 96, 0.3);
+        }
+
+        .btn-warning {
+            background-color: var(--warning-color);
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background-color: #d68910;
+            transform: translateY(-3px);
+            box-shadow: 0 7px 10px rgba(243, 156, 18, 0.3);
+        }
+
+        .question-counter {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        /* الأسئلة */
+        .question-container {
+            margin-bottom: 30px;
+            padding-bottom: 25px;
+            border-bottom: 1px dashed #ddd;
+        }
+
+        .question-header {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            gap: 15px;
+        }
+
+        .question-number {
+            background-color: var(--primary-color);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--dark-color);
+            line-height: 1.5;
+        }
+
+        .options-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .option {
+            background-color: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .option:hover {
+            background-color: #e9ecef;
+            border-color: #ced4da;
+        }
+
+        .option.selected {
+            background-color: #d4edda;
+            border-color: var(--success-color);
+        }
+
+        .option input {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .option-label {
+            font-weight: 600;
+            color: var(--primary-color);
+            min-width: 30px;
+        }
+
+        /* الأسئلة الإنشائية */
+        .essay-question {
+            margin-bottom: 35px;
+            padding: 25px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            border-right: 5px solid var(--warning-color);
+        }
+
+        .essay-answer {
+            width: 100%;
+            min-height: 120px;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+            font-size: 1rem;
+            margin-top: 15px;
+            resize: vertical;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* النتيجة */
+        .result-container {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .result-score {
+            font-size: 5rem;
+            font-weight: 800;
+            color: var(--secondary-color);
+            margin: 20px 0;
+            text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        .result-message {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            color: var(--primary-color);
+        }
+
+        .result-details {
+            background-color: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            text-align: right;
+        }
+
+        .progress-bar {
+            height: 20px;
+            background-color: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, var(--success-color), var(--accent-color));
+            border-radius: 10px;
+            transition: width 1s ease;
+        }
+
+        /* الفوتر */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .copyright {
+            opacity: 0.8;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: var(--accent-color);
+        }
+
+        /* التجاوب مع الشاشات الصغيرة */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+            
+            .nav-list {
+                flex-direction: column;
+            }
+            
+            .chapters-summary {
+                grid-template-columns: 1fr;
+            }
+            
+            .test-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .chapter-select {
+                width: 100%;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- الهيدر -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-book-open"></i>
+                <div class="logo-text">
+                    <h1>نظم المعلومات المحاسبية</h1>
+                    <p>الاختبار التفاعلي للمادة الدراسية</p>
+                </div>
+            </div>
+            <div class="student-info">
+                <h3><i class="fas fa-user-graduate"></i> إعداد الطالب</h3>
+                <p>قيس طلال الجازي</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- التنقل -->
+    <nav>
+        <div class="container">
+            <ul class="nav-list">
+                <li><a href="#" class="nav-link active" data-section="home"><i class="fas fa-home"></i> الصفحة الرئيسية</a></li>
+                <li><a href="#" class="nav-link" data-section="test"><i class="fas fa-file-alt"></i> اختبار الفصول</a></li>
+                <li><a href="#" class="nav-link" data-section="results"><i class="fas fa-chart-line"></i> النتائج</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- المحتوى الرئيسي -->
+    <main class="container">
+        <!-- الصفحة الرئيسية -->
+        <section id="home" class="section active">
+            <div class="section-header">
+                <i class="fas fa-home"></i>
+                <h2>مرحباً بك في نظام الاختبار التفاعلي</h2>
+            </div>
+            
+            <div class="welcome-message">
+                <h3><i class="fas fa-graduation-cap"></i> نظم المعلومات المحاسبية</h3>
+                <p>هذا الموقع التفاعلي يقدم اختباراً شاملاً للفصول الثلاثة الأولى من مادة نظم المعلومات المحاسبية. يمكنك اختبار معرفتك من خلال 70 سؤالاً موضوعياً و20 سؤالاً إنشائياً تغطي المفاهيم الأساسية في المادة.</p>
+            </div>
+            
+            <div class="section-header">
+                <i class="fas fa-book"></i>
+                <h2>ملخص الفصول الثلاثة الأولى</h2>
+            </div>
+            
+            <div class="chapters-summary">
+                <!-- الفصل الأول -->
+                <div class="chapter-card">
+                    <h3><i class="fas fa-chapter-1"></i> الفصل الأول: الأطار النظري لأنظمة المعلومات</h3>
+                    <ul>
+                        <li>مفهوم النظام وخصائصه</li>
+                        <li>مفهوم البيانات ومعالجتها</li>
+                        <li>مفهوم المعلومات وخصائصها</li>
+                        <li>دور المعلومات في اتخاذ القرارات</li>
+                        <li>نظم المعلومات وأهميتها</li>
+                    </ul>
+                    <p><strong>عدد الأسئلة:</strong> 30 سؤال موضوعي + 10 أسئلة إنشائية</p>
+                </div>
+                
+                <!-- الفصل الثاني -->
+                <div class="chapter-card">
+                    <h3><i class="fas fa-chapter-2"></i> الفصل الثاني: الإطار العلمي للمحاسبة كنظام للمعلومات</h3>
+                    <ul>
+                        <li>مفهوم المحاسبة وأهدافها</li>
+                        <li>الأطراف المستفيدة من المعلومات المحاسبية</li>
+                        <li>المبادئ المحاسبية المتعارف عليها</li>
+                        <li>الإطار المفاهيمي للنظام المحاسبي</li>
+                        <li>تطور الحاجة إلى المحاسبة كنظام للمعلومات</li>
+                    </ul>
+                    <p><strong>عدد الأسئلة:</strong> 25 سؤال موضوعي + 5 أسئلة إنشائية</p>
+                </div>
+                
+                <!-- الفصل الثالث -->
+                <div class="chapter-card">
+                    <h3><i class="fas fa-chapter-3"></i> الفصل الثالث: نظم المعلومات المحاسبية نظرة عامة</h3>
+                    <ul>
+                        <li>مفهوم نظم المعلومات المحاسبية</li>
+                        <li>خصائص ووظائف نظم المعلومات المحاسبية</li>
+                        <li>مكونات نظم المعلومات المحاسبية</li>
+                        <li>مزايا وعيوب نظم المعلومات المحاسبية</li>
+                        <li>الفرق بين النظام المحاسبي اليدوي والمحوسب</li>
+                    </ul>
+                    <p><strong>عدد الأسئلة:</strong> 15 سؤال موضوعي + 5 أسئلة إنشائية</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="#" class="btn btn-primary nav-link" data-section="test">
+                    <i class="fas fa-play-circle"></i> ابدأ الاختبار الآن
+                </a>
+            </div>
+        </section>
+        
+        <!-- صفحة الاختبار -->
+        <section id="test" class="section">
+            <div class="section-header">
+                <i class="fas fa-file-alt"></i>
+                <h2>اختبار الفصول الثلاثة الأولى</h2>
+            </div>
+            
+            <div class="test-controls">
+                <div>
+                    <select id="chapterSelect" class="chapter-select">
+                        <option value="all">جميع الفصول (الاختبار الكامل)</option>
+                        <option value="1">الفصل الأول فقط</option>
+                        <option value="2">الفصل الثاني فقط</option>
+                        <option value="3">الفصل الثالث فقط</option>
+                    </select>
+                </div>
+                <div>
+                    <button id="startTestBtn" class="btn btn-primary">
+                        <i class="fas fa-play"></i> بدء الاختبار
+                    </button>
+                    <button id="submitTestBtn" class="btn btn-success" style="display: none;">
+                        <i class="fas fa-check-circle"></i> إنهاء الاختبار وعرض النتيجة
+                    </button>
+                </div>
+            </div>
+            
+            <div id="testInstructions" class="welcome-message">
+                <h3><i class="fas fa-info-circle"></i> تعليمات الاختبار</h3>
+                <p>1. اختر الفصل الذي تريد اختباره من القائمة المنسدلة</p>
+                <p>2. اضغط على زر "بدء الاختبار" لبدء حل الأسئلة</p>
+                <p>3. الإجابة على الأسئلة الموضوعية باختيار الإجابة الصحيحة</p>
+                <p>4. الإجابة على الأسئلة الإنشائية بكتابة الإجابة في المساحة المخصصة</p>
+                <p>5. اضغط على زر "إنهاء الاختبار وعرض النتيجة" عند الانتهاء</p>
+                <p><strong>ملاحظة:</strong> يمكنك الرجوع إلى الأسئلة وتعديل إجاباتك قبل إنهاء الاختبار</p>
+            </div>
+            
+            <div id="testContent" style="display: none;">
+                <div class="question-counter">
+                    <div>
+                        <span id="currentQuestion">1</span> / <span id="totalQuestions">90</span> سؤال
+                    </div>
+                    <div>
+                        الوقت المنقضي: <span id="timer">00:00</span>
+                    </div>
+                </div>
+                
+                <div id="questionsContainer">
+                    <!-- سيتم إضافة الأسئلة هنا ديناميكياً -->
+                </div>
+                
+                <div style="text-align: center; margin-top: 30px;">
+                    <button id="prevQuestionBtn" class="btn btn-warning" style="display: none;">
+                        <i class="fas fa-arrow-right"></i> السؤال السابق
+                    </button>
+                    <button id="nextQuestionBtn" class="btn btn-primary">
+                        السؤال التالي <i class="fas fa-arrow-left"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- صفحة النتائج -->
+        <section id="results" class="section">
+            <div class="section-header">
+                <i class="fas fa-chart-line"></i>
+                <h2>نتائج الاختبار</h2>
+            </div>
+            
+            <div id="resultsContent">
+                <div class="result-container">
+                    <i class="fas fa-trophy" style="font-size: 4rem; color: var(--warning-color); margin-bottom: 20px;"></i>
+                    <h3>لم تقم بإجراء أي اختبار بعد</h3>
+                    <p>انتقل إلى صفحة الاختبار وقم بحل الأسئلة لعرض نتائجك هنا.</p>
+                    <a href="#" class="btn btn-primary nav-link" data-section="test" style="margin-top: 20px;">
+                        <i class="fas fa-redo"></i> الانتقال إلى الاختبار
+                    </a>
+                </div>
+            </div>
+            
+            <div id="previousResults" style="margin-top: 40px; display: none;">
+                <div class="section-header">
+                    <i class="fas fa-history"></i>
+                    <h2>الاختبارات السابقة</h2>
+                </div>
+                <div id="previousTestsList">
+                    <!-- سيتم إضافة الاختبارات السابقة هنا -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- الفوتر -->
+    <footer>
+        <div class="container footer-content">
+            <div class="copyright">
+                <p>جميع الحقوق محفوظة &copy;  - نظم المعلومات المحاسبية</p>
+                <p>إعداد الطالب: قيس طلال الجازي</p>
+            </div>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // البيانات الأساسية
+        const chapters = {
+            1: {
+                title: "الفصل الأول: الأطار النظري لأنظمة المعلومات",
+                mcqCount: 30,
+                essayCount: 10,
+                color: "#3498db"
+            },
+            2: {
+                title: "الفصل الثاني: الإطار العلمي للمحاسبة كنظام للمعلومات",
+                mcqCount: 25,
+                essayCount: 5,
+                color: "#2ecc71"
+            },
+            3: {
+                title: "الفصل الثالث: نظم المعلومات المحاسبية نظرة عامة",
+                mcqCount: 15,
+                essayCount: 5,
+                color: "#9b59b6"
+            }
+        };
+
+        // الأسئلة الموضوعية (عينة لأغراض العرض)
+        const mcqQuestions = {
+            1: [
+                {
+                    id: 1,
+                    question: "ما هو التعريف الصحيح للنظام؟",
+                    options: [
+                        "مجموعة من العناصر التي تعمل بشكل منفصل",
+                        "مجموعة من العناصر والأجزاء التي تعمل وتتفاعل فيما بينها لتحقيق هدف معين",
+                        "مجموعة من الأفراد الذين يعملون في مكان واحد",
+                        "مجموعة من الآلات المتصلة ببعضها"
+                    ],
+                    correctAnswer: 1,
+                    chapter: 1
+                },
+                {
+                    id: 2,
+                    question: "ما الفرق بين البيانات والمعلومات؟",
+                    options: [
+                        "البيانات هي معلومات غير منظمة",
+                        "المعلومات هي بيانات تم معالجتها لتصبح ذات معنى",
+                        "البيانات والمعلومات مترادفان",
+                        "البيانات أكثر دقة من المعلومات"
+                    ],
+                    correctAnswer: 1,
+                    chapter: 1
+                },
+                {
+                    id: 3,
+                    question: "أي من الخصائص التالية تعتبر من خصائص المعلومات النوعية؟",
+                    options: [
+                        "السرعة في الإنتاج",
+                        "التكلفة المنخفضة",
+                        "الملائمة والموثوقية",
+                        "الطول والقصر"
+                    ],
+                    correctAnswer: 2,
+                    chapter: 1
+                },
+                {
+                    id: 4,
+                    question: "ما هي مراحل عملية اتخاذ القرارات؟",
+                    options: [
+                        "التخطيط والتنفيذ والرقابة",
+                        "التحديد والتجميع والتقييم",
+                        "التحليل والتصميم والتطوير",
+                        "الدراسة والتطبيق والتقييم"
+                    ],
+                    correctAnswer: 1,
+                    chapter: 1
+                },
+                {
+                    id: 5,
+                    question: "ما هو الهدف الرئيسي لنظم المعلومات؟",
+                    options: [
+                        "تخزين البيانات فقط",
+                        "توصيل المعلومات للمستفيدين لمساعدتهم في اتخاذ القرارات",
+                        "استبدال العنصر البشري في العمل",
+                        "زيادة تعقيد العمليات الإدارية"
+                    ],
+                    correctAnswer: 1,
+                    chapter: 1
+                },
+                {
+                    id: 6,
+                    question: "ما هو تعريف المحاسبة؟",
+                    options: [
+                        "فن تسجيل العمليات المالية فقط",
+                        "علم يختص بتسجيل وقياس المدخلات التي تعكس أحداث ذات أثر مالي على المنشأة",
+                        "مجموعة من القوانين المالية",
+                        "طريقة لحساب الضرائب"
+                    ],
+                    correctAnswer: 1,
+                    chapter: 2
+                },
+                {
+                    id: 7,
+                    question: "أي من الأطراف التالية يعتبر من المستفيدين الخارجيين من المعلومات المحاسبية؟",
+                    options: [
+                        "إدارة المنشأة",
+                        "الموظفون",
+                        "الدائنون والبنوك",
+                        "جميع ما ذكر"
+                    ],
+                    correctAnswer: 2,
+                    chapter: 2
+                },
+                {
+                    id: 8,
+                    question: "أي من المبادئ المحاسبية التالية يفترض أن المنشأة وجدت لتستمر إلى وقت غير محدد؟",
+                    options: [
+                        "مبدأ الوحدة المحاسبية",
+                        "فرضية الاستمرارية",
+                        "مبدأ التكلفة التاريخية",
+                        "مبدأ المقابلة"
+                    ],
+                    correctAnswer: 1,
+                    chapter: 2
+                },
+                {
+                    id: 9,
+                    question: "ما هو الهدف الرئيسي لنظم المعلومات المحاسبية؟",
+                    options: [
+                        "تسجيل العمليات المالية فقط",
+                        "جمع وتخزين ومعالجة البيانات المالية والمحاسبية ونشر المعلومات الناتجة",
+                        "استبدال المحاسبين بالحاسوب",
+                        "زيادة تعقيد النظام المحاسبي"
+                    ],
+                    correctAnswer: 1,
+                    chapter: 3
+                },
+                {
+                    id: 10,
+                    question: "ما هو الفرق الأساسي بين النظام المحاسبي اليدوي والمحوسب؟",
+                    options: [
+                        "التكلفة فقط",
+                        "السرعة فقط",
+                        "العقل المنفذ للأمور (البشري مقابل الإلكتروني)",
+                        "جميع ما ذكر"
+                    ],
+                    correctAnswer: 2,
+                    chapter: 3
+                }
+            ],
+            2: [
+                // مزيد من الأسئلة للفصل الثاني
+                {
+                    id: 11,
+                    question: "ما هو المبدأ المحاسبي الذي يعني معاملة كل منشأة على أنها وحدة منفصلة عن مالكها؟",
+                    options: [
+                        "مبدأ الوحدة المحاسبية",
+                        "مبدأ الاستمرارية",
+                        "مبدأ الثبات",
+                        "مبدأ الحيطة والحذر"
+                    ],
+                    correctAnswer: 0,
+                    chapter: 2
+                }
+            ],
+            3: [
+                // مزيد من الأسئلة للفصل الثالث
+                {
+                    id: 12,
+                    question: "أي من الخصائص التالية تعتبر من خصائص نظم المعلومات المحاسبية؟",
+                    options: [
+                        "توجيهها أساساً للتعامل مع النقود",
+                        "عدم الاهتمام بالبيانات التاريخية",
+                        "عدم إعداد ميزان المراجعة",
+                        "جميع ما ذكر"
+                    ],
+                    correctAnswer: 0,
+                    chapter: 3
+                }
+            ]
+        };
+
+        // الأسئلة الإنشائية (عينة لأغراض العرض)
+        const essayQuestions = {
+            1: [
+                {
+                    id: 1,
+                    question: "عرف النظام واذكر خصائصه الأساسية.",
+                    chapter: 1
+                },
+                {
+                    id: 2,
+                    question: "ما الفرق بين البيانات والمعلومات مع ذكر مثال على كل منهما.",
+                    chapter: 1
+                },
+                {
+                    id: 3,
+                    question: "اشرح دور المعلومات في عملية اتخاذ القرارات.",
+                    chapter: 1
+                },
+                {
+                    id: 4,
+                    question: "ما هي أهمية نظم المعلومات للمؤسسات المختلفة؟",
+                    chapter: 1
+                },
+                {
+                    id: 5,
+                    question: "عرف نظم المعلومات واذكر أركانها الرئيسية.",
+                    chapter: 1
+                }
+            ],
+            2: [
+                {
+                    id: 6,
+                    question: "عرف علم المحاسبة واذكر أهدافه.",
+                    chapter: 2
+                },
+                {
+                    id: 7,
+                    question: "ما هي أهم المبادئ المحاسبية المتعارف عليها؟ اذكر خمسة منها.",
+                    chapter: 2
+                },
+                {
+                    id: 8,
+                    question: "من هم الأطراف المستفيدة من المعلومات المحاسبية؟ اذكر أربعة منهم.",
+                    chapter: 2
+                },
+                {
+                    id: 9,
+                    question: "اشرح تطور الحاجة إلى المحاسبة كنظام للمعلومات.",
+                    chapter: 2
+                },
+                {
+                    id: 10,
+                    question: "ما هو الإطار المفاهيمي للنظام المحاسبي؟",
+                    chapter: 2
+                }
+            ],
+            3: [
+                {
+                    id: 11,
+                    question: "عرف نظم المعلومات المحاسبية واذكر خصائصها.",
+                    chapter: 3
+                },
+                {
+                    id: 12,
+                    question: "ما هي مزايا وعيوب نظم المعلومات المحاسبية؟",
+                    chapter: 3
+                },
+                {
+                    id: 13,
+                    question: "اذكر مكونات نظم المعلومات المحاسبية.",
+                    chapter: 3
+                },
+                {
+                    id: 14,
+                    question: "ما الفرق الأساسي بين النظام المحاسبي اليدوي والمحوسب؟",
+                    chapter: 3
+                },
+                {
+                    id: 15,
+                    question: "لماذا ندرس أنظمة المعلومات المحاسبية؟",
+                    chapter: 3
+                }
+            ]
+        };
+
+        // حالة التطبيق
+        let currentTest = {
+            chapter: "all",
+            startTime: null,
+            endTime: null,
+            answers: {},
+            essayAnswers: {}
+        };
+
+        let currentQuestionIndex = 0;
+        let testQuestions = [];
+        let testEssayQuestions = [];
+        let timerInterval = null;
+        let secondsElapsed = 0;
+
+        // عناصر DOM
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('.section');
+        const chapterSelect = document.getElementById('chapterSelect');
+        const startTestBtn = document.getElementById('startTestBtn');
+        const submitTestBtn = document.getElementById('submitTestBtn');
+        const testInstructions = document.getElementById('testInstructions');
+        const testContent = document.getElementById('testContent');
+        const questionsContainer = document.getElementById('questionsContainer');
+        const currentQuestionElement = document.getElementById('currentQuestion');
+        const totalQuestionsElement = document.getElementById('totalQuestions');
+        const timerElement = document.getElementById('timer');
+        const prevQuestionBtn = document.getElementById('prevQuestionBtn');
+        const nextQuestionBtn = document.getElementById('nextQuestionBtn');
+        const resultsContent = document.getElementById('resultsContent');
+        const previousResults = document.getElementById('previousResults');
+        const previousTestsList = document.getElementById('previousTestsList');
+
+        // التنقل بين الصفحات
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetSection = this.getAttribute('data-section');
+                
+                // تحديث الروابط النشطة
+                navLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+                
+                // إظهار القسم المطلوب
+                sections.forEach(section => {
+                    section.classList.remove('active');
+                    if (section.id === targetSection) {
+                        section.classList.add('active');
+                    }
+                });
+                
+                // إذا كان القسم هو النتائج، عرض آخر نتيجة
+                if (targetSection === 'results') {
+                    displayResults();
+                }
+            });
+        });
+
+        // بدء الاختبار
+        startTestBtn.addEventListener('click', function() {
+            const selectedChapter = chapterSelect.value;
+            currentTest.chapter = selectedChapter;
+            currentTest.startTime = new Date();
+            currentTest.answers = {};
+            currentTest.essayAnswers = {};
+            
+            // إعداد الأسئلة بناءً على الفصل المختار
+            testQuestions = [];
+            testEssayQuestions = [];
+            
+            if (selectedChapter === "all") {
+                // جميع الفصول
+                for (let chapter in mcqQuestions) {
+                    testQuestions = testQuestions.concat(mcqQuestions[chapter]);
+                }
+                for (let chapter in essayQuestions) {
+                    testEssayQuestions = testEssayQuestions.concat(essayQuestions[chapter]);
+                }
+            } else {
+                // فصل محدد
+                const chapterNum = parseInt(selectedChapter);
+                testQuestions = mcqQuestions[chapterNum] || [];
+                testEssayQuestions = essayQuestions[chapterNum] || [];
+            }
+            
+            // خلط الأسئلة عشوائياً
+            testQuestions = shuffleArray(testQuestions);
+            testEssayQuestions = shuffleArray(testEssayQuestions);
+            
+            // إخفاء التعليمات وإظهار الأسئلة
+            testInstructions.style.display = "none";
+            testContent.style.display = "block";
+            startTestBtn.style.display = "none";
+            submitTestBtn.style.display = "inline-flex";
+            
+            // إعداد العداد
+            secondsElapsed = 0;
+            startTimer();
+            
+            // عرض السؤال الأول
+            currentQuestionIndex = 0;
+            displayCurrentQuestion();
+            
+            // تحديث عداد الأسئلة
+            updateQuestionCounter();
+        });
+
+        // إنهاء الاختبار وعرض النتيجة
+        submitTestBtn.addEventListener('click', function() {
+            currentTest.endTime = new Date();
+            stopTimer();
+            
+            // حساب النتيجة
+            const result = calculateResult();
+            
+            // حفظ النتيجة في localStorage
+            saveTestResult(result);
+            
+            // عرض النتيجة
+            displayResult(result);
+            
+            // الانتقال إلى صفحة النتائج
+            navLinks.forEach(l => l.classList.remove('active'));
+            document.querySelector('[data-section="results"]').classList.add('active');
+            
+            sections.forEach(section => {
+                section.classList.remove('active');
+                if (section.id === 'results') {
+                    section.classList.add('active');
+                }
+            });
+        });
+
+        // السؤال السابق
+        prevQuestionBtn.addEventListener('click', function() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                displayCurrentQuestion();
+                updateQuestionCounter();
+            }
+        });
+
+        // السؤال التالي
+        nextQuestionBtn.addEventListener('click', function() {
+            saveCurrentAnswer();
+            
+            if (currentQuestionIndex < testQuestions.length + testEssayQuestions.length - 1) {
+                currentQuestionIndex++;
+                displayCurrentQuestion();
+                updateQuestionCounter();
+            }
+        });
+
+        // وظائف المساعدة
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(function() {
+                secondsElapsed++;
+                updateTimerDisplay();
+            }, 1000);
+        }
+
+        function stopTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(secondsElapsed / 60);
+            const seconds = secondsElapsed % 60;
+            timerElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        function displayCurrentQuestion() {
+            questionsContainer.innerHTML = "";
+            
+            // تحديد إذا كان السؤال الحالي موضوعي أم إنشائي
+            const totalQuestions = testQuestions.length + testEssayQuestions.length;
+            let questionElement;
+            
+            if (currentQuestionIndex < testQuestions.length) {
+                // سؤال موضوعي
+                const question = testQuestions[currentQuestionIndex];
+                questionElement = createMCQQuestionElement(question, currentQuestionIndex);
+            } else {
+                // سؤال إنشائي
+                const essayIndex = currentQuestionIndex - testQuestions.length;
+                const question = testEssayQuestions[essayIndex];
+                questionElement = createEssayQuestionElement(question, currentQuestionIndex);
+            }
+            
+            questionsContainer.appendChild(questionElement);
+            
+            // تحديث أزرار التنقل
+            prevQuestionBtn.style.display = currentQuestionIndex > 0 ? "inline-flex" : "none";
+            
+            if (currentQuestionIndex === totalQuestions - 1) {
+                nextQuestionBtn.innerHTML = 'إنهاء الاختبار <i class="fas fa-check"></i>';
+                nextQuestionBtn.onclick = function() {
+                    saveCurrentAnswer();
+                    submitTestBtn.click();
+                };
+            } else {
+                nextQuestionBtn.innerHTML = 'السؤال التالي <i class="fas fa-arrow-left"></i>';
+                nextQuestionBtn.onclick = function() {
+                    saveCurrentAnswer();
+                    if (currentQuestionIndex < totalQuestions - 1) {
+                        currentQuestionIndex++;
+                        displayCurrentQuestion();
+                        updateQuestionCounter();
+                    }
+                };
+            }
+        }
+
+        function createMCQQuestionElement(question, index) {
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'question-container';
+            
+            questionDiv.innerHTML = `
+                <div class="question-header">
+                    <div class="question-number">${index + 1}</div>
+                    <div class="question-text">${question.question}</div>
+                </div>
+                <div class="options-container">
+                    ${question.options.map((option, i) => `
+                        <div class="option ${currentTest.answers[question.id] === i ? 'selected' : ''}" data-option="${i}">
+                            <div class="option-label">${String.fromCharCode(65 + i)}</div>
+                            <div>${option}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            
+            // إضافة مستمعي الأحداث للخيارات
+            const options = questionDiv.querySelectorAll('.option');
+            options.forEach(option => {
+                option.addEventListener('click', function() {
+                    const selectedOption = parseInt(this.getAttribute('data-option'));
+                    
+                    // إلغاء تحديد الخيارات الأخرى
+                    options.forEach(opt => opt.classList.remove('selected'));
+                    
+                    // تحديد الخيار المختار
+                    this.classList.add('selected');
+                    
+                    // حفظ الإجابة
+                    currentTest.answers[question.id] = selectedOption;
+                });
+            });
+            
+            return questionDiv;
+        }
+
+        function createEssayQuestionElement(question, index) {
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'essay-question';
+            
+            // الحصول على الإجابة المحفوظة إن وجدت
+            const savedAnswer = currentTest.essayAnswers[question.id] || '';
+            
+            questionDiv.innerHTML = `
+                <div class="question-header">
+                    <div class="question-number">${index + 1}</div>
+                    <div class="question-text">${question.question}</div>
+                </div>
+                <textarea class="essay-answer" data-question-id="${question.id}" placeholder="اكتب إجابتك هنا...">${savedAnswer}</textarea>
+            `;
+            
+            // إضافة مستمع الحدث لحفظ الإجابة أثناء الكتابة
+            const textarea = questionDiv.querySelector('.essay-answer');
+            textarea.addEventListener('input', function() {
+                currentTest.essayAnswers[question.id] = this.value;
+            });
+            
+            return questionDiv;
+        }
+
+        function saveCurrentAnswer() {
+            // حفظ إجابة السؤال الموضوعي الحالي
+            if (currentQuestionIndex < testQuestions.length) {
+                const question = testQuestions[currentQuestionIndex];
+                const selectedOption = document.querySelector('.option.selected');
+                if (selectedOption) {
+                    const answerIndex = parseInt(selectedOption.getAttribute('data-option'));
+                    currentTest.answers[question.id] = answerIndex;
+                }
+            } else {
+                // حفظ إجابة السؤال الإنشائي الحالي
+                const essayIndex = currentQuestionIndex - testQuestions.length;
+                const question = testEssayQuestions[essayIndex];
+                const textarea = document.querySelector('.essay-answer');
+                if (textarea) {
+                    currentTest.essayAnswers[question.id] = textarea.value;
+                }
+            }
+        }
+
+        function updateQuestionCounter() {
+            const totalQuestions = testQuestions.length + testEssayQuestions.length;
+            currentQuestionElement.textContent = currentQuestionIndex + 1;
+            totalQuestionsElement.textContent = totalQuestions;
+        }
+
+        function calculateResult() {
+            let correctAnswers = 0;
+            const totalMCQ = testQuestions.length;
+            
+            // حساب الإجابات الصحيحة للأسئلة الموضوعية
+            testQuestions.forEach(question => {
+                const userAnswer = currentTest.answers[question.id];
+                if (userAnswer !== undefined && userAnswer === question.correctAnswer) {
+                    correctAnswers++;
+                }
+            });
+            
+            // حساب النسبة المئوية
+            const scorePercentage = totalMCQ > 0 ? Math.round((correctAnswers / totalMCQ) * 100) : 0;
+            
+            // تحديد التقدير
+            let grade;
+            if (scorePercentage >= 90) grade = "امتياز";
+            else if (scorePercentage >= 80) grade = "جيد جداً";
+            else if (scorePercentage >= 70) grade = "جيد";
+            else if (scorePercentage >= 60) grade = "مقبول";
+            else grade = "راسب";
+            
+            // حساب الوقت المنقضي
+            const timeSpent = secondsElapsed;
+            const minutes = Math.floor(timeSpent / 60);
+            const seconds = timeSpent % 60;
+            const timeString = `${minutes} دقيقة و ${seconds} ثانية`;
+            
+            return {
+                chapter: currentTest.chapter,
+                date: new Date().toLocaleDateString('ar-EG'),
+                time: timeString,
+                score: correctAnswers,
+                totalMCQ: totalMCQ,
+                totalEssay: testEssayQuestions.length,
+                percentage: scorePercentage,
+                grade: grade
+            };
+        }
+
+        function saveTestResult(result) {
+            // الحصول على النتائج السابقة من localStorage
+            let previousResults = JSON.parse(localStorage.getItem('accountingTestResults')) || [];
+            
+            // إضافة النتيجة الحالية
+            previousResults.push(result);
+            
+            // حفظ في localStorage
+            localStorage.setItem('accountingTestResults', JSON.stringify(previousResults));
+        }
+
+        function displayResults() {
+            // الحصول على النتائج السابقة من localStorage
+            let previousResults = JSON.parse(localStorage.getItem('accountingTestResults')) || [];
+            
+            if (previousResults.length === 0) {
+                // لا توجد نتائج سابقة
+                resultsContent.innerHTML = `
+                    <div class="result-container">
+                        <i class="fas fa-trophy" style="font-size: 4rem; color: var(--warning-color); margin-bottom: 20px;"></i>
+                        <h3>لم تقم بإجراء أي اختبار بعد</h3>
+                        <p>انتقل إلى صفحة الاختبار وقم بحل الأسئلة لعرض نتائجك هنا.</p>
+                        <a href="#" class="btn btn-primary nav-link" data-section="test" style="margin-top: 20px;">
+                            <i class="fas fa-redo"></i> الانتقال إلى الاختبار
+                        </a>
+                    </div>
+                `;
+                previousResults.style.display = "none";
+            } else {
+                // عرض آخر نتيجة
+                const lastResult = previousResults[previousResults.length - 1];
+                
+                resultsContent.innerHTML = `
+                    <div class="result-container">
+                        <h3>نتيجة آخر اختبار</h3>
+                        <div class="result-score">${lastResult.percentage}%</div>
+                        <div class="result-message">${lastResult.grade}</div>
+                        
+                        <div class="result-details">
+                            <p><strong>تاريخ الاختبار:</strong> ${lastResult.date}</p>
+                            <p><strong>الفصل المختبر:</strong> ${lastResult.chapter === "all" ? "جميع الفصول" : "الفصل " + lastResult.chapter}</p>
+                            <p><strong>الوقت المستغرق:</strong> ${lastResult.time}</p>
+                            <p><strong>الدرجة:</strong> ${lastResult.score} من ${lastResult.totalMCQ}</p>
+                            <p><strong>عدد الأسئلة الإنشائية:</strong> ${lastResult.totalEssay}</p>
+                            
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: ${lastResult.percentage}%"></div>
+                            </div>
+                            <p>النسبة المئوية: ${lastResult.percentage}%</p>
+                        </div>
+                        
+                        <a href="#" class="btn btn-primary nav-link" data-section="test">
+                            <i class="fas fa-redo"></i> إجراء اختبار جديد
+                        </a>
+                    </div>
+                `;
+                
+                // عرض الاختبارات السابقة إذا كان هناك أكثر من اختبار
+                if (previousResults.length > 1) {
+                    previousResults.style.display = "block";
+                    displayPreviousTests(previousResults);
+                } else {
+                    previousResults.style.display = "none";
+                }
+            }
+            
+            // إضافة مستمعي الأحداث للروابط الجديدة
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetSection = this.getAttribute('data-section');
+                    
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    sections.forEach(section => {
+                        section.classList.remove('active');
+                        if (section.id === targetSection) {
+                            section.classList.add('active');
+                        }
+                    });
+                });
+            });
+        }
+
+        function displayPreviousTests(results) {
+            // عكس الترتيب لعرض أحدث الاختبارات أولاً
+            const reversedResults = [...results].reverse();
+            
+            let testsHTML = '';
+            
+            reversedResults.forEach((result, index) => {
+                if (index === 0) return; // تخطي آخر نتيجة (تم عرضها بالفعل)
+                
+                testsHTML += `
+                    <div class="chapter-card" style="border-top-color: ${chapters[result.chapter] ? chapters[result.chapter].color : '#3498db'};">
+                        <h3><i class="fas fa-file-alt"></i> اختبار ${result.chapter === "all" ? "جميع الفصول" : "الفصل " + result.chapter}</h3>
+                        <p><strong>التاريخ:</strong> ${result.date}</p>
+                        <p><strong>النتيجة:</strong> ${result.score} من ${result.totalMCQ} (${result.percentage}%)</p>
+                        <p><strong>التقدير:</strong> ${result.grade}</p>
+                        <p><strong>الوقت:</strong> ${result.time}</p>
+                    </div>
+                `;
+            });
+            
+            previousTestsList.innerHTML = testsHTML;
+        }
+
+        // تهيئة الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            // تحديث عنوان الصفحة مع اسم الطالب
+            document.title = `نظم المعلومات المحاسبية - ${document.querySelector('.student-info p').textContent}`;
+            
+            // تعيين الحدث لزر إنهاء الاختبار
+            submitTestBtn.addEventListener('click', function() {
+                // تمت إضافة الحدث بالفعل في الأعلى
+            });
+        });
+    </script>
+</body>
+</html>
